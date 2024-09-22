@@ -1,6 +1,7 @@
 import { Project } from "src/projects/entities/project.entity";
 import { TaskStatus } from "../enum/TaskStatus";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/modules/users/entities/user.entity";
 
 @Entity()
 export class Task {
@@ -22,5 +23,9 @@ export class Task {
         nullable: false,
     })
     project: Project;
+
+    @ManyToOne(() => User, (user) => user.tasks)
+    @JoinColumn()
+    user: User;
 
 }
